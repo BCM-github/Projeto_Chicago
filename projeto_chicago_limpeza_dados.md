@@ -1,3 +1,7 @@
+---
+title: "Projeto Chicago - Limpeza de Dados"
+output: html_notebook
+---
 # INTRODUÇÃO
 
 Esse arquivo lista as etapas que segui para minerar e limpar os conjuntos de dados usados no projeto. Este processo foi feito em RStudio.
