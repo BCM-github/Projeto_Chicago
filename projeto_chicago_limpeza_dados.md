@@ -7,7 +7,7 @@ editor_options:
 
 # INTRODUÇÃO
 
-Esse arquivo lista as etapas que segui para minerar e limpar os conjuntos de dados usados no projeto.
+Esse arquivo lista as etapas que segui para minerar e limpar os conjuntos de dados usados no projeto. Este processo foi feito em RStudio.
 
 # PACOTES
 
@@ -33,54 +33,56 @@ setwd("C:/R Studio/Projeto_Chicago_2008_2012")
 [Link](https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-Present/ijzp-q8t2?utm_medium=Exinfluencer&utm_source=Exinfluencer&utm_content=000026UJ&utm_term=10006555&utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkDB0201ENSkillsNetwork20127838-2022-01-01)
 
 ### Carregando original para um dataframe:
-
+Arquivo grande, cerca de 1.7GB.
 ```{r}
-# arquivo grande, cerca de 1.7GB
 crime_data_original <- read_csv("https://data.cityofchicago.org/api/views/ijzp-q8t2/rows.csv?accessType=DOWNLOAD")
 ```
 
 ### Filtrando dados:
-
+Removendo anos irrelevantes do dataframe.
 ```{r}
-# removendo anos irrelevantes do dataframe
 crime_data_filtered <- filter(crime_data_original, Year > 2007 & Year < 2013)
-
-# escolhendo quais colunas vão servir para o projeto
+```
+Escolhendo quais colunas vão servir para o projeto.
+```{r}
 keep <- c("ID", "Date", "Primary Type", "Description", "Location Description", "Arrest", "Domestic", "Community Area", "Year")
-
-# filtrando colunas irrelevantes e mantendo apenas as colunas escolhidas
-# criei um novo dataframe por motivos de segurança e organização
+```
+Filtrando colunas irrelevantes e mantendo apenas as colunas escolhidas.
+Criei um novo dataframe por motivos de segurança e organização.
+```{r}
 crime_data_filtered2 <- crime_data_filtered[keep]
 ```
 
 ### Usando summary() para investigar o dataframe:
 
+Primeiramente, vamos dar uma olhadinha se tem algo muito estranho no dataframe. 
+Podemos observar que algumas linhas estão vazias na coluna "community area", e isso pode atrapalhar na análise.
+Existem pacotes melhores para investigar e estudar dataframes, para o propósito deste projeto, summary() é suficiente.
 ```{r}
-# Primeiramente, vamos dar uma olhadinha se tem algo muito estranho no dataframe. 
-# Podemos observar que algumas linhas estão vazias na coluna "community area", e isso pode atrapalhar na análise.
-# Existem pacotes melhores para investigar e estudar dataframes, para o propósito deste projeto, summary() é suficiente
 summary(crime_data_filtered2)
 ```
 
 ### Removendo valores vazios do dataframe:
 
+Como o arquivo original é muito grande, em vez de procurar os valores corretos para as linhas NA da community area, eu resolvei apenas exclui-las.
+854 linhas foram removidas.
 ```{r}
-# como o arquivo original é muito grande, em vez de procurar os valores corretos para as linhas NA da community area, eu resolvei apenas exclui-las
-# 854 linhas foram removidas
 crime_data_filtered3 <- filter(crime_data_filtered2,!is.na(crime_data_filtered2[8]))
 ```
 
 ### Procurando por valores duplicados em ID:
 
+Contando número de linhas totais
 ```{r}
-# contando número de linhas totais
 nrow(crime_data_filtered3)
-
-# contando cada valor unique na coluna ID, cada valor na coluna Id deve ser único
-# se retorna o mesmo número de linhas do dataframe, indica que tudo está correto
+```
+Contando cada valor unique na coluna ID, cada valor na coluna Id deve ser único.
+Se retornar o mesmo número de linhas do dataframe, indica que tudo está correto.
+```{r}
 length(unique(crime_data_filtered3$ID))
-
-# verificando se algum valor é duplicado. Se retornar TRUE, não tem valores duplicados
+```
+Verificando se algum valor é duplicado. Se retornar TRUE, não tem valores duplicados
+```{r}
 length(unique(crime_data_filtered3$ID)) == nrow(crime_data_filtered3)
 ```
 
@@ -103,12 +105,12 @@ census_original <- read_csv("https://data.cityofchicago.org/resource/kn9c-c2s2.c
 ```
 
 ### Limpando os dados:
-
+Excluindo ultima linha porque ela representa o estado inteiro.
 ```{r}
-# excluindo ultima linha porque representa o estado inteiro
 census_filtered <- filter(census_original, !is.na(ca))
-
-# mudando nome das colunas
+```
+Mudando nome das colunas.
+```{r}
 names(census_filtered)[names(census_filtered) == 'ca'] <- 'community_area_number'
 ```
 
