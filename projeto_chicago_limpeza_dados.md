@@ -1,10 +1,3 @@
----
-title: "R Notebook"
-output: html_notebook
-editor_options: 
-  chunk_output_type: inline
----
-
 # INTRODUÇÃO
 
 Esse arquivo lista as etapas que segui para minerar e limpar os conjuntos de dados usados no projeto. Este processo foi feito em RStudio.
