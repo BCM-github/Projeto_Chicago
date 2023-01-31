@@ -86,7 +86,7 @@ length(unique(crime_data_filtered3$ID)) == nrow(crime_data_filtered3)
 ### Carregando dados limpos para o csv:
 
 ```{r}
-write_csv(crime_data_filtered2,"crime_data_chicago_2008_2012.csv")
+write_csv(crime_data_filtered3,"crime_data_chicago_2008_2012.csv")
 ```
 
 # CENSUS DATA DE CHICAGO
@@ -127,4 +127,6 @@ O arquivo original é muito grande (cerca de 1.7GB no momento deste projeto) e �
 
 #### 30/01/2023
 
+Versão: 1.1
+- corrigido código errado
 Versão: 1.0
